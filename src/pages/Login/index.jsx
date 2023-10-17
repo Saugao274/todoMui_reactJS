@@ -38,8 +38,8 @@ function Login() {
     try {
       await Validationschema.validate(inputValues, { abortEarly: false });
       if (
-        inputValues.username === "admin" &&
-        inputValues.password === "123456"
+        inputValues.username === "admin123" &&
+        inputValues.password === "12345678"
       ) {
         toast.success("Login successfully!!!");
         navigate("/home");
@@ -48,7 +48,7 @@ function Login() {
         setValidate({
           username: false,
           password: false,
-        })
+        });
       }
     } catch (error) {
       let newValidate = {
@@ -91,7 +91,7 @@ function Login() {
             Login
           </Typography>
           <TextField
-          error={validate.username}
+            error={validate.username}
             fullWidth
             id="outlined-basic"
             label="Username"
@@ -102,7 +102,7 @@ function Login() {
             }
           />
           <TextField
-          error={validate.password}
+            error={validate.password}
             fullWidth
             id="outlined-basic"
             label="Password"
