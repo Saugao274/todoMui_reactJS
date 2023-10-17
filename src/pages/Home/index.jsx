@@ -27,7 +27,7 @@ import {
 } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import { v4 as uuidv4 } from "uuid";
 import { getColor } from "../../ultils/color";
@@ -54,7 +54,6 @@ function Home() {
     isDone: false,
   });
   const [taskList, setTaskList] = useState([]);
-  console.log(taskList);
 
   const handleSubmit = () => {
     if (task.title.trim() === "") {
@@ -76,14 +75,20 @@ function Home() {
       isDone: false,
     });
     setIsvalidate(false);
-    localStorage.setItem("list", JSON.stringify(task));
+
     toast.success("Add task successfully!!!");
   };
-  useEffect(() => {
-    console.log(JSON.parse(JSON.stringify(task).length));
 
-    // setTaskList([JSON.parse(localStorage.getItem("list"))]);
+  useEffect(() => {
+    JSON.parse(localStorage.getItem("list")).length > 0 ? (
+      setTaskList(JSON.parse(localStorage.getItem("list")))
+    ) : (
+      <></>
+    );
   }, []);
+  useEffect(() => {
+    localStorage.setItem("list", JSON.stringify(taskList));
+  }, [taskList]);
 
   const handleDelete = (x) => {
     const newArray = taskList.filter((task, index) => index !== x);
@@ -118,6 +123,7 @@ function Home() {
       }
     });
     setTaskList(newTaskList);
+
     setOpen(false);
   };
 
@@ -279,7 +285,7 @@ function Home() {
                       </IconButton>
                     </Stack>
                   ) : (
-                    <></>
+                    <React.Fragment key={index}></React.Fragment>
                   )
                 )}
                 {/* {taskList.filter(
