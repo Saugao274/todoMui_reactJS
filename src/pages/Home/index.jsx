@@ -53,10 +53,12 @@ function Home() {
     priority: "normal",
     isDone: false,
   });
-  const [taskList, setTaskList] = useState([]);
+  const [taskList, setTaskList] = useState(
+    JSON.parse(localStorage.getItem("list")) ?? []
+  );
 
   const handleSubmit = () => {
-    if (task.title.trim() === "") {
+    if (task?.title.trim() === "") {
       setIsvalidate(true);
       toast.error("Add task faild!!!");
       return;
@@ -79,15 +81,15 @@ function Home() {
     toast.success("Add task successfully!!!");
   };
 
+  // useEffect(() => {
+  //   JSON.parse(localStorage.getItem("list"))?.length > 0 ? (
+  //     setTaskList(JSON.parse(localStorage.getItem("list")))
+  //   ) : (
+  //     <></>
+  //   );
+  // }, []);
   useEffect(() => {
-    JSON.parse(localStorage.getItem("list"))?.length > 0 ? (
-      setTaskList(JSON.parse(localStorage.getItem("list")))
-    ) : (
-      <></>
-    );
-  }, []);
-  useEffect(() => {
-    localStorage.setItem("list", JSON.stringify(taskList));
+    localStorage?.setItem("list", JSON.stringify(taskList));
   }, [taskList]);
 
   const handleDelete = (x) => {
@@ -244,7 +246,7 @@ function Home() {
                 Your tasks
               </Typography>
               <Stack direction={"column"}>
-                {taskList.map((task, index) =>
+                {taskList?.map((task, index) =>
                   filter[task.priority] ? (
                     <Stack
                       direction={"row"}
