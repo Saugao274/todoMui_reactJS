@@ -80,7 +80,7 @@ function Home() {
   };
 
   useEffect(() => {
-    JSON.parse(localStorage.getItem("list")).length > 0 ? (
+    JSON.parse(localStorage.getItem("list"))?.length > 0 ? (
       setTaskList(JSON.parse(localStorage.getItem("list")))
     ) : (
       <></>
