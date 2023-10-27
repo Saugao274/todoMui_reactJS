@@ -36,7 +36,7 @@ function TaskList({ taskList, filter, setTaskList, setOpen, setEditedTask }) {
     setEditedTask(task);
   };
   return (
-    <Container sx={{ height: 400 }}>
+    <Container sx={{ height: 400, overflow: "auto" }}>
       <Typography variant="h6" marginBottom={1} marginTop={2}>
         Your tasks
       </Typography>
